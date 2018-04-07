@@ -1,9 +1,12 @@
 import os
 import sys
 import time
+from dotenv import load_dotenv, find_dotenv
 
 from slackclient import SlackClient
 from telegram.bot import Bot
+
+load_dotenv(find_dotenv())
 
 SLACK_TOKEN = os.environ['SLACK_TOKEN']
 sc = SlackClient(SLACK_TOKEN)
@@ -16,6 +19,7 @@ if sc.rtm_connect():
     while True:
         messages = sc.rtm_read()
         for message in messages:
+            print(message)
             try:
                 if message['type'] == 'message':
                     if message['channel'][0] == 'G':
